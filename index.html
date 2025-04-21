@@ -1,106 +1,600 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOME || KANEKI 2K FF</title>
+    <title>KANEKI 2K FF</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #000; /* Fondo negro más oscuro */
-            color: #ffffff;
-            text-align: center;
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a12;
+            color: #f5f5f7;
+            margin: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at top right, rgba(255, 0, 64, 0.4), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(255, 0, 64, 0.4), transparent 60%);
+            z-index: -2;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            margin-bottom: 3rem;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo {
+            height: 28px;
+        }
+        
+        .logo-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .profile {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh; /* Centrado verticalmente */
         }
-        .profile {
-            margin-bottom: 30px;
+        
+        .profile:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 15px rgba(255, 0, 64, 0.4);
         }
-        .profile img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%; /* Estilo circular para la foto de perfil */
-            border: 4px solid #FF0000; /* Borde rojo */
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.88); /* Sombra para darle más presencia */
-        }
-        .profile-name {
-            margin-top: 15px;
-            font-size: 26px;
-            font-weight: 500;
-            animation: waterEffect 3s infinite; /* Animación para el efecto de agua */
+        
+        .profile svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
         }
 
-        @keyframes waterEffect {
+        .hero {
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.2s;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .highlight {
+            color: #ff0000;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background-color: rgba(255, 0, 64, 0.4));
+            z-index: -1;
+            transform: skew(-10deg);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .featured-download {
+            background: linear-gradient(165deg, #ff0000 0%, #510100 100%);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            box-shadow: 0 15px 50px rgba(255, 0, 64, 0.4);
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s forwards 0.4s;
+        }
+        
+        .featured-content {
+            position: relative;
+            z-index: 2;
+            max-width: 55%;
+        }
+        
+        .featured-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+        
+        .featured-desc {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .featured-btn {
+            background-color: white;
+            color: #ff0000;
+            border: none;
+            border-radius: 12px;
+            padding: 0.9rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .featured-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .featured-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .featured-image {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35%;
+            aspect-ratio: 4/5;
+            background: rgba(255, 0, 64, 0.4);
+            backdrop-filter: blur(5px);
+            border-radius: 16px;
+            z-index: 1;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 0, 64, 0.4);
+        }
+
+        .featured-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 0, 64, 0.4), transparent);
+        }
+        
+        .wave-decoratin {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='rgba(255, 0, 64, 0.4)'/%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .download-card {
+            background: rgba(255, 0, 64, 0.4));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 64, 0.4);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .download-card:nth-child(1) {
+            animation: fadeUp 0.8s forwards 0.6s;
+        }
+        
+        .download-card:nth-child(2) {
+            animation: fadeUp 0.8s forwards 0.8s;
+        }
+        
+        .download-card:nth-child(3) {
+            animation: fadeUp 0.8s forwards 1s;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(255, 0, 64, 0.4);
+            border-color: rgba(255, 0, 64, 0.4);
+        }
+        
+        .icon-container {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, #ff0000 0%, #ff0000 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(255, 0, 64, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+        
+        .card-desc {
+            opacity: 0.8;
+            margin-bottom: 1.8rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .download-btn {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 0, 64, 0.4);
+            border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            background-color: #ff0000;
+            border-color: #ff0000;
+            transform: translateY(-2px);
+        }
+        
+        .download-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .loading {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 0, 64, 0.4);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 12px 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 5px 15px rgba(255, 0, 64, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #ff0000, #ff0000);
+        }
+        
+        .snackbar.show {
+            visibility: visible;
+            animation: snackbarFadeIn 0.5s, snackbarFadeOut 0.5s 2s;
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floating {
             0%, 100% {
-                color: #FFF; /* Comienza en color azul agua */
+                transform: translateY(0px);
             }
             50% {
-                color: #FF0000; /* Cambia a color naranja rojizo */
+                transform: translateY(-15px);
             }
         }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes snackbarFadeIn {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes snackbarFadeOut {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+        
 
-        .social-buttons {
-            margin-top: 20px;
-            width: 80%;
-            max-width: 400px;
-        }
-        .social-buttons a {
-            display: block;
-            background-color: #FF0000;
-            color: #ffffff;
-            padding: 15px;
-            margin: 10px 0;
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra debajo de los botones */
-            transition: all 0.3s ease;
-        }
-        .social-buttons a:hover {
-            background-color: #FF0000;
-            transform: translateY(-3px); /* Efecto de levitación al pasar el mouse */
-        }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #999;
-        }
-        .footer a {
-            color: #ffffff;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            font-weight: bold;
-            text-decoration: underline;
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .featured-content {
+                max-width: 100%;
+            }
+            
+            .featured-image {
+                display: none;
+            }
+            
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .featured-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="profile">
-            <img src="http://imgfz.com/i/EH8lneU.jpeg" alt="Foto de perfil de TikTok">
-            <div class="profile-name">KANEKI 2K FF</div>
-        </div>
 
-        <div class="social-buttons">
-            <a href="redes.html" target="_blank">REDES SOCIALES</a>
-            <a href="apks.html" target="_blank">APLICACIONES</a>
-            <a href="file.html" target="_blank">ARCHIVOS</a>
-        </div>
-        <div class="footer">
-            <p>CREATOR BY <a href="https://www.youtube.com/@kaneki2kff" target="_blank">KANEKI 2K FF</a></p>
+    <div class="bg-gradient"></div>
+    <div class="particles-container" id="particles"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <img src="https://img.icons8.com/?size=100&id=98937&format=png&color=FFFFFF" alt="Logo" class="logo">
+                <span class="logo-text">KANEKI 2K FF</span>
+            </div>
+            <div class="profile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="white"/></svg>
+            </div>
+        </header>
+        
+        <section class="hero">
+            <h1>todas mis <span class="highlight">creaciones</span> en un único lugar</h1>
+            <p class="subtitle">Ayrton Cloud. La mejor plataforma para descargar apps y archivos de KANEKI 2K FF</p>
+        </section>
+        
+        <section class="featured-download">
+            <div class="featured-content">
+                <h2 class="featured-title">Free Fire Global</h2>
+                <p class="featured-desc">Aqui te dejo un enlace por si gustas descargar Free Fire Global.</p>
+                <a href="javascript:void(0)" class="featured-btn" onclick="simulateDownload(this, 'https://dl.cdn.freefiremobile.com/live/package/FreeFire.apk')"><span class="btn-text">Descargar</span>
+                    <span class="loading"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#ff0000"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </a>
+            </div>
+            <div class="featured-image"></div>
+            <div class="wave-decoration"></div>
+        </section>
+        
+        <div class="download-grid">
+            <div class="download-card">
+                <div class="icon-container">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 16V4H8V16H20ZM20 2C21.1 2 22 2.9 22 4V16C22 17.1 21.1 18 20 18H8C6.9 18 6 17.1 6 16V4C6 2.9 6.9 2 8 2H20ZM4 6H2V20C2 21.1 2.9 22 4 22H18V20H4V6Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">Server Proxy</h3>
+                <p class="card-desc">Conecte-se com maior segurança e privacidade utilizando nosso proxy otimizado.</p>
+                <a href="javascript:void(0)" class="download-btn" onclick="simulateDownload(this, 'https://submais.com/PRuxFVAJc8I')">
+                    <span class="btn-text">Download</span>
+                    <span class="loading"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </a>
+            </div>
+            
+            <div class="download-card">
+                <div class="icon-container">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 1.01L7 1C5.9 1 5 1.9 5 3V21C5 22.1 5.9 23 7 23H17C18.1 23 19 22.1 19 21V3C19 1.9 18.1 1.01 17 1.01ZM17 19H7V5H17V19Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">UGPhone</h3>
+                <p class="card-desc">Aplicativo de comunicação avançado com recursos exclusivos de chamadas e mensagens.</p>
+                <a href="javascript:void(0)" class="download-btn" onclick="simulateDownload(this, 'https://submais.com/xhbuCRGcLZH')">
+                    <span class="btn-text">Download</span>
+                    <span class="loading"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </a>
+            </div>
+            
+            <div class="download-card">
+                <div class="icon-container">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.5 1H7.5C6.12 1 5 2.12 5 3.5V20.5C5 21.88 6.12 23 7.5 23H15.5C16.88 23 18 21.88 18 20.5V3.5C18 2.12 16.88 1 15.5 1ZM11.5 21C10.67 21 10 20.33 10 19.5C10 18.67 10.67 18 11.5 18C12.33 18 13 18.67 13 19.5C13 20.33 12.33 21 11.5 21ZM16 17H8V4H16V17Z"/>
+                    </svg>
+                </div>
+                <h3 class="card-title">VPhoneOS</h3>
+                <p class="card-desc">Sistema operacional virtual para celulares com diversas personalizações e otimizações.</p>
+                <a href="javascript:void(0)" class="download-btn" onclick="simulateDownload(this, 'https://submais.com/k0hadrBimXj')">
+                    <span class="btn-text">Download</span>
+                    <span class="loading"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                </a>
+            </div>
         </div>
     </div>
+    
+    <div class="snackbar" id="snackbar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/>
+        </svg>
+        Redirecionando para download...
+    </div>
+    
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 15;
+            const colors = ['rgba(255, 0, 64, 0.4)', 'rgba(255, 0, 0, 1))', 'rgba(255, 0, 64, 0.4)'];
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                const size = Math.random() * 80 + 40;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.backgroundColor = color;
+
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 5;
+                
+                particle.style.animation = `floating ${duration}s ease-in-out infinite ${delay}s, 
+                                           fadeUp 1s forwards ${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        });
+
+        function simulateDownload(button, url) {
+            const btnText = button.querySelector('.btn-text');
+            const loadingSpinner = button.querySelector('.loading');
+            const buttonIcon = button.querySelector('svg');
+            const originalText = btnText.textContent;
+
+            button.style.pointerEvents = 'none';
+            btnText.textContent = 'Iniciando...';
+            loadingSpinner.style.display = 'inline-block';
+            buttonIcon.style.display = 'none';
+
+            setTimeout(function() {
+
+                const snackbar = document.getElementById('snackbar');
+                snackbar.className = 'snackbar show';
+
+                setTimeout(function() {
+                    window.location.href = url;
+                }, 500);
+
+                setTimeout(function() {
+                    btnText.textContent = originalText;
+                    loadingSpinner.style.display = 'none';
+                    buttonIcon.style.display = 'inline-block';
+                    button.style.pointerEvents = 'auto';
+                }, 3000);
+            }, 600);
+        }
+    </script>
 </body>
 </html>
